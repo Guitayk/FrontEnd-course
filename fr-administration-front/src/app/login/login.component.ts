@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     this.api.post({endpoint: '/auth/login', data: { username, password },}).then(response => {
         this.tokenStorageService.save(response.access_token);
         if(this.tokenStorageService.isLogged()) {
-          this.route.navigateByUrl("/users")
+          this.route.navigateByUrl("/home")
         } else {
          this.errorMessage = "Le mot de passe est incorrect";
         }

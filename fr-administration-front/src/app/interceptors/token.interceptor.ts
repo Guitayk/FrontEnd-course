@@ -42,7 +42,7 @@ export class TokenHttpInterceptor implements HttpInterceptor {
             if(error instanceof HttpErrorResponse){
                 if (error.status === 401){
                     //Redirection pour que l'utilisateur se reconnecte
-                    this.route.navigateByUrl('');
+                    this.route.navigateByUrl('/login');
                 }
             }
         }
