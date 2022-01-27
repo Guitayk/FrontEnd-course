@@ -62,3 +62,8 @@
     display: block;
     height: 10em;
 }
+
+:host #message {
+    color: red;
+    text-align: center;
+}
