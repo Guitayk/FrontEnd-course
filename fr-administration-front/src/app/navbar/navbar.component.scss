@@ -1,0 +1,44 @@
+:host {
+    overflow: hidden;
+    background-color: rgb(228, 228, 228);
+    height: 5.5em;
+    width: 100%;
+    padding:0;
+    margin: 0;
+    display: block;
+}
+
+:host a {
+    display: inline-block;
+    color: black; 
+    text-align: center;
+    padding: 0 16px;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    line-height: 4em;
+    height: 100%;
+    font-size: 20px;
+}
+
+:host a img {
+    max-height: 4em;
+    height: auto;
+	margin: 0 auto;
+	width: auto;
+    vertical-align: middle;
+}
+
+:host #logout{
+    float: right;
+}
+
+:host a:hover {
+    background-color: rgb(163, 163, 163);
+    color: black;
+}
+
+:host a.active {
+    background-color: rgb(201, 0, 0);
+    color: white;
+}
