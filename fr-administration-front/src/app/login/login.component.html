@@ -1,7 +1,19 @@
-<div>
-    <label for="username">Email</label>
+<div id="container">
+
+  <!-- zone de connexion -->
+  <form>
+    <h1 class="center">Administration des associations</h1>
+    <img src="assets/images/favicon.png" alt="MDN logo">
+    
+    <h3>Connexion à la plateforme</h3>
+
+    <label for="username">Nom d'utilisateur</label>
     <input type="text" id="username" placeholder="username" />
-    <label for="password">Password</label>
+
+    <label for="password">Mot de passe</label>
     <input type="password" id="password" placeholder="password" />
-    <a (click)="login()"><button>Login</button></a>
-  </div>
+
+    <h5 id="message"></h5>
+    <a mat-raised-button color="primary" (click)="login()">Connexion</a>
+  </form>
+</div>
