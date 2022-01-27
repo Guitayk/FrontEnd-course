@@ -1,0 +1,64 @@
+:host #container{
+    width:500px;
+    margin:0 auto;
+    margin-top:10%;
+}
+/* Bordered form */
+:host form {
+    width:100%;
+    padding: 20px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+:host #container h1{
+    width: 90%;
+    // margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+:host #container a{
+    padding: 5px 15px;
+    width:50%;
+    margin-left:25%;
+    margin-right:25%;
+    margin-top: 5%;
+}
+
+/* Full-width inputs */
+:host input[type=text], :host input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+:host input[type=submit] {
+    background-color: #53af57;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+:host input[type=submit]:hover {
+    background-color: white;
+    color: #53af57;
+    border: 1px solid #53af57;
+}
+
+:host .center{
+    margin: auto;
+    text-align: center;
+}
+
+:host img {
+    margin: 2em auto;
+    display: block;
+    height: 10em;
+}
