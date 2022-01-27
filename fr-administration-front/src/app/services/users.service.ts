@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
-import { User } from '../users-list/users-list.component';
+import { User } from '../dto/User';
 import { ApiHelperService } from './api-helper.service';
 import { UserCriteria } from './criteria/UserCriteria';
 
