@@ -20,7 +20,7 @@ export class AssociationsService {
     )
   }
 
-  public searchAssociations(associationCriteria : AssociationCriteria) : Observable<Association[]>{
+  public searchAssociations(associationCriteria? : AssociationCriteria) : Observable<Association[]>{
     const endpoint = "/associations";
     return from(this.apiHelper.get({endpoint})).pipe(
       map(object =>{
