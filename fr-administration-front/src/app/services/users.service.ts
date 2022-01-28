@@ -32,11 +32,11 @@ export class UsersService {
     )
   }
 
-  public deleteUser(userId : number) : Observable<void>{
-    const endpoint = "/users/" + userId;
-    return from(this.apiHelper.delete({endpoint})).pipe(
+  public createUser(user : User) : Observable<User>{
+    const endpoint = "/users";
+    return from(this.apiHelper.post({endpoint, data: user})).pipe(
       map(object => {
-        return object;
+        return <User> object;
       })
     )
   }
@@ -48,6 +48,11 @@ export class UsersService {
         return <User> object;
       })
     )
+  }
+
+  public deleteUser(userId : number) : Observable<void>{
+    const endpoint = "/users/" + userId;
+    return from(this.apiHelper.delete({endpoint}))
   }
 
   private userInCriteria(user : User, criteria?: UserCriteria) : boolean{
