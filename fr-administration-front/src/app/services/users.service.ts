@@ -25,6 +25,9 @@ export class UsersService {
     return from(this.apiHelper.get({endpoint})).pipe(
       map(object =>{
         return <User[]> object;
+      }),
+      map(users => {
+        return users.filter(user => this.userInCriteria(user, userCriteria))
       })
     )
   }
@@ -45,5 +48,22 @@ export class UsersService {
         return <User> object;
       })
     )
+  }
+
+  private userInCriteria(user : User, criteria?: UserCriteria) : boolean{
+    if(!criteria) return true;
+
+    if(criteria.age){
+      if(criteria.age != user.age) return false;
+    }
+
+    if(criteria.firstname){
+      if(!user.firstname.includes(criteria.firstname)) return false;
+    }
+
+    if(criteria.lastname){
+      if(!user.lastname.includes(criteria.lastname)) return false;
+    }
+    return true;
   }
 }
