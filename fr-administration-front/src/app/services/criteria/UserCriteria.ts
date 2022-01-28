@@ -1,7 +1,7 @@
 export class UserCriteria {
     constructor(
-      public lastname: string,
-      public firstname: string,
-      public age: number,
+      public lastname: string |undefined,
+      public firstname: string |undefined,
+      public age: number |undefined,
     ) {}
   }

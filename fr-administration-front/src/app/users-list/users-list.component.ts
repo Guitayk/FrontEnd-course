@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../dto/User';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-users-list',
@@ -13,16 +14,9 @@ export class UsersListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'lastname', 'firstname', 'age'];
   dataSource: User[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UsersService) {}
 
   ngOnInit(): void {
-    const resquest: Observable<any> = this.http.get('http://localhost:3000/users', { observe: 'response' });
-    resquest.toPromise().then(response => this.dataSource = response.body);
+    this.userService.searchUsers().subscribe(result => this.dataSource =result);
   }
-
 }
-
-const users: User[] = [
-  new User(0, 'Doe', 'John', 23),
-  new User(1, 'Doe', 'Jane', 32),
-]

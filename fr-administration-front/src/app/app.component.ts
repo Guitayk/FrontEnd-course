@@ -11,7 +11,6 @@ export class AppComponent {
   constructor(private route: Router) {}
 
   getCurrentRoute() { 
-    console.log( this.route.url)
     return this.route.url
   }
 }

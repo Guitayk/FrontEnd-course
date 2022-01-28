@@ -20,7 +20,7 @@ export class UsersService {
     )
   }
 
-  public searchUsers(userCriteria : UserCriteria) : Observable<User[]>{
+  public searchUsers(userCriteria? : UserCriteria) : Observable<User[]>{
     const endpoint = "/users";
     return from(this.apiHelper.get({endpoint})).pipe(
       map(object =>{
