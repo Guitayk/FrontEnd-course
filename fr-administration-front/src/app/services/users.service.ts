@@ -28,4 +28,22 @@ export class UsersService {
       })
     )
   }
+
+  public deleteUser(userId : number) : Observable<void>{
+    const endpoint = "/users/" + userId;
+    return from(this.apiHelper.delete({endpoint})).pipe(
+      map(object => {
+        return object;
+      })
+    )
+  }
+
+  public updateUser(userId : number, user:User) : Observable<User>{
+    const endpoint = "/users/" + userId;
+    return from(this.apiHelper.put({endpoint, data : user})).pipe(
+      map(object => {
+        return <User> object;
+      })
+    )
+  }
 }
