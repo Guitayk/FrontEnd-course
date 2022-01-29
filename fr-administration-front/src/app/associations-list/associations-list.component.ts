@@ -18,6 +18,7 @@ export class AssociationsListComponent implements OnInit {
 
   deleteAssociation(name:string) {
     this.associationService.deleteAssociation(name);
+    this.dataSource = this.dataSource.filter(x => x.name != name);
   }
 
   openDialog(association:Association): void {

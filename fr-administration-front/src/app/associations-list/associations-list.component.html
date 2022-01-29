@@ -9,7 +9,7 @@
   
     <ng-container matColumnDef="dateOfCreation">
       <th mat-header-cell *matHeaderCellDef> Date de création </th>
-      <td mat-cell *matCellDef="let association"> {{association.dateOfCreation}} </td>
+      <td mat-cell *matCellDef="let association"> {{association.dateOfCreation | date:'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
