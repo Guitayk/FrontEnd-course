@@ -1,0 +1,37 @@
+:host {
+    display: block;
+    margin : 10% auto;
+}
+
+:host img,button {
+    display: block;
+    margin : auto;
+}
+
+:host h1, :host h2 {
+    text-align: center;
+}
+
+//----- Dialog CSS
+.mat-dialog-actions {
+    display: block;
+    margin: auto;
+}
+.mat-dialog-actions button {
+    float: right;
+    margin: auto;
+}
+
+.mat-dialog-content {
+    display: block;
+    margin: auto;
+}
+
+.row * {
+    display: inline;
+}
+
+.row img {
+    vertical-align: middle;
+    margin-right: 10px;
+}

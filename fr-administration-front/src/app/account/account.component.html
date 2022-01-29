@@ -1,0 +1,6 @@
+<div>
+    <img class="center" src="https://img.icons8.com/ios-filled/100/000000/guest-male--v1.png"/>
+    <h1> {{user?.firstname}} {{user?.lastname}} </h1>
+    <h2> Age : {{user?.age}} ans</h2>
+    <button mat-raised-button color="primary" (click)="openDialog(user!)" cdkFocusInitial>Mettre à jour</button>
+</div>

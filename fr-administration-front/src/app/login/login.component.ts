@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     const password: string = (document.getElementById('password') as HTMLInputElement).value;
 
     this.api.post({endpoint: '/auth/login', data: { username, password },}).then(response => {
-        this.tokenStorageService.save(response.access_token);
+        this.tokenStorageService.save(response.access_token,username);
         if(this.tokenStorageService.isLogged()) {
           this.route.navigateByUrl("/home")
         } else {
