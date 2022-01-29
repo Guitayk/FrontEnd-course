@@ -28,4 +28,14 @@ export class AssociationsService {
       })
     )
   }
+
+  public deleteAssociation(associationName : string) : Observable<Association> |undefined{
+    //TODO 
+    return
+  }
+
+  public updateAssociation(associationName : string, user:Association) : Observable<Association> | undefined{
+    //TODO
+    return
+  }
 }

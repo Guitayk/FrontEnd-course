@@ -3,7 +3,7 @@ import { User } from "./User";
 export class Association {
     constructor(
       public name: string,
-      public creationDate: Date,
+      public dateOfCreation: Date,
       public members: User[]
     ) {}
   }

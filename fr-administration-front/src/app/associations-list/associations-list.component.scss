@@ -1,0 +1,36 @@
+table {
+    margin: 10%;
+    width: 75%;
+}
+
+:host td img {
+    margin: auto 10px;
+}
+
+table .mat-column-actions {
+    width: 12em;
+}
+
+//----- Dialog CSS
+.mat-dialog-actions {
+    display: block;
+    margin: auto;
+}
+.mat-dialog-actions button {
+    float: right;
+    margin: auto;
+}
+
+.mat-dialog-content {
+    display: block;
+    margin: auto;
+}
+
+.row * {
+    display: inline;
+}
+
+.row img {
+    vertical-align: middle;
+    margin-right: 10px;
+}

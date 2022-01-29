@@ -1,0 +1,22 @@
+<div class="row">
+  <img src="https://img.icons8.com/wired/30/000000/edit.png"/>
+  <h1 mat-dialog-title>Mise à jour des données de l'association</h1>
+</div>
+<br>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Nom de l'association</mat-label>
+    <input matInput [formControl]="nameControl">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Date de création</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="creationDateControl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial>Sauvegarder</button>
+  <button mat-button (click)="cancel()">Annuler</button>
+</div>
