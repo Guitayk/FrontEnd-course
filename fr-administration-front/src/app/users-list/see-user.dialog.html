@@ -1,0 +1,23 @@
+<div class="row">
+    <img src="https://img.icons8.com/wired/30/000000/edit.png"/>
+    <h2 mat-dialog-title>Fiche utilisateur</h2>
+</div>
+<br>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Prénom</mat-label>
+        <input matInput [formControl]="firstnameControl" readonly>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput [formControl]="lastnameControl" readonly>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <input matInput [formControl]="ageControl" readonly>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Retour</button>
+</div>
