@@ -20,6 +20,16 @@ export class UsersService {
     )
   }
 
+  public getUserByUsername(userName : string) : Observable<User>{
+    const endpoint = "/users";
+    return this.searchUsers().pipe(
+      map(users=>{
+        const result = users.filter(user=> user.firstname.charAt(0) === userName.substring(0,1) && user.lastname === userName.substring(1)).pop()
+        if(!result) throw new Error("Username not found")
+        return result;
+    }))
+  }
+
   public searchUsers(userCriteria? : UserCriteria) : Observable<User[]>{
     const endpoint = "/users";
     return from(this.apiHelper.get({endpoint})).pipe(
@@ -58,17 +68,12 @@ export class UsersService {
   private userInCriteria(user : User, criteria?: UserCriteria) : boolean{
     if(!criteria) return true;
 
-    if(criteria.age){
-      if(criteria.age != user.age) return false;
-    }
+    if(criteria.age && criteria.age != user.age) return false;
 
-    if(criteria.firstname){
-      if(!user.firstname.includes(criteria.firstname)) return false;
-    }
+    if(criteria.firstname && !user.firstname.toLowerCase().includes(criteria.firstname.toLowerCase())) return false;
 
-    if(criteria.lastname){
-      if(!user.lastname.includes(criteria.lastname)) return false;
-    }
+    if(criteria.lastname && !user.lastname.toLowerCase().includes(criteria.lastname.toLowerCase())) return false;
+
     return true;
   }
 }
