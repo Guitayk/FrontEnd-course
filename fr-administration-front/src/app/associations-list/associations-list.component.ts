@@ -14,6 +14,10 @@ export class AssociationsListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'dateOfCreation','actions'];
   dataSource: Association[] = [];
 
+  searchGroup = new FormGroup({
+    nameFilter: new FormControl(),
+  });
+
   constructor(public dialog: MatDialog,private associationService: AssociationsService) { }
 
   deleteAssociation(name:string) {
@@ -21,7 +25,7 @@ export class AssociationsListComponent implements OnInit {
     this.dataSource = this.dataSource.filter(x => x.name != name);
   }
 
-  openDialog(association:Association): void {
+  openEditDialog(association:Association): void {
     const dialogRef = this.dialog.open(UpdateAssociationDialog, {
       width: '30em',
       data: association,
@@ -33,6 +37,14 @@ export class AssociationsListComponent implements OnInit {
         this.dataSource[index].dateOfCreation = result.dateOfCreation;
       }
     });
+  }
+
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(AddAssociationDialog, {
+      width: '30em',
+    });
+    //TODO
+    // dialogRef.afterClosed().subscribe(result => {});
   }
 
   ngOnInit(): void {
@@ -65,5 +77,31 @@ export class UpdateAssociationDialog {
     const newAsso :Association = {"name": this.data.name, "dateOfCreation": this.creationDateControl.value, "members": this.data.members}
     this.associationService.updateAssociation(this.data.name,newAsso);
     this.dialogRef.close(newAsso);
+  }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'add-association.dialog.html',
+  styleUrls: ['./associations-list.component.scss']
+})
+export class AddAssociationDialog {
+
+  nameControl = new FormControl(this.data.name);
+  creationDateControl = new FormControl(this.data.dateOfCreation);
+
+  constructor(
+    public dialogRef: MatDialogRef<AddAssociationDialog>,private associationService: AssociationsService,
+    @Inject(MAT_DIALOG_DATA) public data: Association,
+  ) {}
+
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  submit() {
+    //TODO
+    const newElement = {}
+    this.dialogRef.close(newElement);
   }
 }
