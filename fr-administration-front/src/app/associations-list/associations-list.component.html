@@ -1,6 +1,19 @@
+<div class="searchLine">
+  <form [formGroup]="searchGroup" class="column">
+    <h3>Recherche par filtrage</h3>
+    <div class="searchDiv">
+        <input matInput type="text" formControlName="firstnameFilter" placeholder="Nom de l'association">
+    </div>
+  </form>
+  <div class="buttonAddUser">
+    <button mat-raised-button color="primary" (click)="openAddDialog()"><h4>
+      <img src="https://img.icons8.com/material-sharp/35/ffffff/add.png"/>  
+      Ajouter une nouvelle association
+    </h4></button>
+  </div>
+</div>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nom </th>
       <td mat-cell *matCellDef="let association"> {{association.name}} </td>
@@ -15,7 +28,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let association">
-            <a (click)="openDialog(association)"> <img src="https://img.icons8.com/wired/30/000000/edit.png"/></a>
+            <a (click)="openEditDialog(association)"> <img src="https://img.icons8.com/wired/30/000000/edit.png"/></a>
             <a (click)="deleteAssociation(association.name)"> <img src="https://img.icons8.com/dotty/30/000000/delete-forever.png"/></a>
         </td>
     </ng-container>
