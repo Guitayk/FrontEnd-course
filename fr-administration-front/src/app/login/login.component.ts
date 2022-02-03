@@ -30,4 +30,23 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+
+  /** Tentative connexion par username mais impossible car le backend n'autorise pas la requête sans être connecté
+   * this.userService.getUserByUsername(username).pipe(
+      switchMap((x) => {
+        id = String(x.id);
+        return this.api.post({
+          endpoint: "/auth/login",
+          data: { id, password },
+        });
+      }),
+    ).subscribe((response) => {
+      this.tokenStorageService.save(response.access_token, id);
+      if (this.tokenStorageService.isLogged()) {
+        this.route.navigateByUrl("/home");
+      } else {
+        this.errorMessage = "Le mot de passe est incorrect";
+      }
+    }, (error) => this.errorMessage = "Utilisateur ou mot de passe incorrect.");
+   */
 }

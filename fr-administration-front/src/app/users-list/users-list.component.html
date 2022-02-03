@@ -1,6 +1,9 @@
 <div class="searchLine">
   <form [formGroup]="searchGroup" class="column">
-    <h3>Recherche par filtrage</h3>
+    <h3 class="row">
+      <img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/30/000000/external-filter-interface-kiranshastry-solid-kiranshastry-1.png"/>
+      Recherche par filtrage
+    </h3>
     <div class="searchDiv">
         <input matInput type="text" formControlName="firstnameFilter" placeholder="Prénom">
     </div>
@@ -23,14 +26,14 @@
       <td mat-cell *matCellDef="let user"> {{user.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="lastname">
-      <th mat-header-cell *matHeaderCellDef> Nom </th>
-      <td mat-cell *matCellDef="let user"> {{user.lastname}} </td>
-    </ng-container>
-  
     <ng-container matColumnDef="firstname">
       <th mat-header-cell *matHeaderCellDef> Prénom </th>
       <td mat-cell *matCellDef="let user"> {{user.firstname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <td mat-cell *matCellDef="let user"> {{user.lastname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="age">

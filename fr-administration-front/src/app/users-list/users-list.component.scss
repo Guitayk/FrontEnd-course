@@ -1,5 +1,5 @@
 table {
-    margin: 10%;
+    margin: 5% 10%;
     width: 75%;
 }
 
@@ -48,4 +48,24 @@ table .mat-column-actions {
 .searchDiv input {
     margin-right: 5px;
     padding: 10px;
+}
+
+input[type="text"] {
+    background-color: rgb(207, 207, 207);
+    border-radius: 5px;
+    border-style: solid;
+    border-color: white;
+    color: black;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(54, 54, 54);
+    opacity: 0.95; /* Firefox */
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgb(54, 54, 54);
+    opacity: 0.95; /* Firefox */
 }

@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { User } from '../dto/User';
 import { UsersService } from '../services/users.service';
 
@@ -13,7 +12,7 @@ import { UsersService } from '../services/users.service';
 })
 export class UsersListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'lastname', 'firstname', 'age','actions'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'age','actions'];
   dataSource: User[] = [];
   filteredDataSoucce : User[] = [];
 
@@ -36,7 +35,7 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:User | undefined) => {
       if(result !== undefined) {
         this.userService.createUser(result).subscribe(newUser => {
-          this.dataSource.push(newUser);
+          this.dataSource = this.dataSource.concat([newUser])
         });
       }
     });
@@ -46,25 +45,16 @@ export class UsersListComponent implements OnInit {
     this.dialog.open(SeeUserDialog, {width: '400px', data: user});
   }
 
-  filterUsers(firstname:string,lastname:string) {
-    this.userService.searchUsers({'firstname':firstname,'lastname':lastname}).subscribe(result => {
-      this.filteredDataSoucce = result;
-    })
+  filterUsers(firstname:string,lastname:string): Observable<User[]> {
+    return this.userService.searchUsers({'firstname':firstname,'lastname':lastname})
   }
 
   ngOnInit(): void {
     this.userService.searchUsers().subscribe(result => this.dataSource =result);
 
-    this.searchGroup.get("firstnameFilter")?.valueChanges.subscribe(x=> {
-      this.filterUsers(x,this.searchGroup.get("lastnameFilter")?.value);
-      this.dataSource = this.filteredDataSoucce;
-    })
-
-    this.searchGroup.get("lastnameFilter")?.valueChanges.subscribe(x=> {
-      console.log(x)
-      this.filterUsers(this.searchGroup.get("firstnameFilter")?.value,x);
-      this.dataSource = this.filteredDataSoucce;
-    })
+    this.searchGroup.valueChanges.pipe(
+      switchMap(_=> this.filterUsers(this.searchGroup.get("firstnameFilter")?.value,this.searchGroup.get("lastnameFilter")?.value))
+    ).subscribe(x=> this.dataSource = x)
   }
 }
 

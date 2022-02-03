@@ -20,6 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule } from '@angular/material/core';
 import { AccountComponent, UpdateUserDialog } from './account/account.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatListModule} from '@angular/material/list'; 
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { AccountComponent, UpdateUserDialog } from './account/account.component'
     MatDialogModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule,
+    TextFieldModule,
+    MatListModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenHttpInterceptor, multi: true},
