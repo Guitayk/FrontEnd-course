@@ -56,14 +56,14 @@ export class AssociationsService {
 
   public validationLegalService(form : AssociationForm):Observable<AssociationForm>{
     const endpoint = "/legal-service/validate";
-    return from(this.apiHelper.put({endpoint, data : form.id})).pipe(
+    return from(this.apiHelper.put({endpoint, data : {associationFormId : form.id}})).pipe(
       map(object => <AssociationForm> object)
     )
   }
 
   public validationFinancialService(form : AssociationForm):Observable<AssociationForm>{
     const endpoint = "/financial-service/validate";
-    return from(this.apiHelper.put({endpoint, data : form.id})).pipe(
+    return from(this.apiHelper.put({endpoint, data : {associationFormId : form.id}})).pipe(
       map(object => <AssociationForm> object)
     )
   }
