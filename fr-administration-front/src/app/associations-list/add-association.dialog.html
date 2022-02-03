@@ -1,16 +1,65 @@
 <div class="row center">
   <img src="https://img.icons8.com/material-sharp/35/000000/add.png"/>
-  <h2 mat-dialog-title>Ajouter une association</h2>
+  <h2 mat-dialog-title>Créer une nouvelle association</h2>
 </div>
 <br>
-<div mat-dialog-content>
+<!-- <div mat-dialog-content> -->
   <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <input matInput [formControl]="nameControl">
   </mat-form-field>
-</div>
+  <mat-form-field appearance="fill">
+    <mat-label>Date de création</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="creationDateControl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <div class="validators">
+    <div class="validator">
+      <button mat-flat-button color="primary" (click)="validateDossier()">
+        Création du dossier
+      </button>
+      <span *ngIf="assoForm" ><img src="https://img.icons8.com/emoji/30/000000/check-mark-emoji.png"/></span>
+      <!-- <ng-template  #elseBlock >
+        <span><img src="https://img.icons8.com/emoji/30/000000/cross-mark-emoji.png"/></span>
+      </ng-template> -->
+    </div>
+    <div class="validator">
+      <button mat-flat-button color="primary" (click)="validateLegal()" *ngIf="assoForm">
+        Validation par le service légal
+      </button>
+      <span *ngIf="assoForm && assoForm.legalValidation"><img src="https://img.icons8.com/emoji/30/000000/check-mark-emoji.png"/></span>
+    </div>
+    <div class="validator">
+      <button mat-flat-button color="primary" (click)="validateFinancial()" *ngIf="assoForm && assoForm.legalValidation">
+        Validation par le service financier
+      </button>
+    <span *ngIf="assoForm && assoForm.legalValidation && assoForm.financialValidation"><img src="https://img.icons8.com/emoji/30/000000/check-mark-emoji.png"/></span>
+    </div>
+    <div class="validator procesverbal"  *ngIf="assoForm && assoForm.legalValidation && assoForm.financialValidation">
+      <p class="center">Création du procès verbal</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Contenu</mat-label>
+      <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+
+      <mat-selection-list #userSelected (selectionChange)="onMembersListChange(userSelected.selectedOptions.selected)">
+        <mat-list-option checkboxPosition="before" *ngFor="let user of users" [value]="user.id">
+          {{user.firstname}} {{user.lastname}}
+        </mat-list-option>
+      </mat-selection-list>
+      <button mat-flat-button color="primary" (click)="validateProcesVerbal()">
+        Mise en place du procès verbal
+      </button>
+    </div>
+    <!-- <span *ngIf="verbalProces"><img src="https://img.icons8.com/emoji/30/000000/check-mark-emoji.png"/></span> -->
+  </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial>Ajouter</button>
+  <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial [disabled]="!verbalProces">Ajouter</button>
   <button mat-button (click)="cancel()">Annuler</button>
 </div>
