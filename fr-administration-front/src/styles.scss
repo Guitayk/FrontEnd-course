@@ -2,3 +2,23 @@
 
 html, body { height: auto; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.center {
+    margin: auto;
+    text-align: center;
+}
+
+.row * {
+    display: inline;
+    vertical-align: middle;
+}
+
+img {
+    vertical-align: middle !important;
+    margin-right: 10px;
+}
+
+:host a {
+    cursor: pointer;
+}

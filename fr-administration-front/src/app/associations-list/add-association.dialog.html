@@ -1,0 +1,16 @@
+<div class="row center">
+  <img src="https://img.icons8.com/material-sharp/35/000000/add.png"/>
+  <h2 mat-dialog-title>Ajouter une association</h2>
+</div>
+<br>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="nameControl">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial>Ajouter</button>
+  <button mat-button (click)="cancel()">Annuler</button>
+</div>
