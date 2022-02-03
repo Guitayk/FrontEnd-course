@@ -1,7 +1,7 @@
 export class AssociationForm {
     constructor(
       public id: number,
-      public validationLegalService: boolean,
-      public validationFinancialService: boolean
+      public legalValidation: boolean,
+      public financialValidation: boolean
     ) {}
 }
