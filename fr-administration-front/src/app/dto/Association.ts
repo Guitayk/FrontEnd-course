@@ -1,9 +1,9 @@
-import { User } from "./User";
+import { Membre } from "./Membre";
 
 export class Association {
     constructor(
       public name: string,
       public dateOfCreation: Date,
-      public members: User[]
+      public members: Membre[]
     ) {}
   }
