@@ -52,7 +52,7 @@ export class AssociationsListComponent implements OnInit {
 
     });
     //TODO
-    // dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(newAsso => { this.dataSource = this.dataSource.concat([newAsso])});
   }
 
   filterAssociations(name:string): Observable<Association[]> {
@@ -79,11 +79,13 @@ export class UpdateAssociationDialog {
 
   nameControl = new FormControl(this.data.name);
   creationDateControl = new FormControl(this.data.dateOfCreation);
+  listMembersControl  = new FormControl(this.data.members);
+  
 
   constructor(
     public dialogRef: MatDialogRef<UpdateAssociationDialog>,private associationService: AssociationsService,
     @Inject(MAT_DIALOG_DATA) public data: Association,
-  ) {}
+  ) {console.log(this.data.members)}
 
   cancel(): void {
     this.dialogRef.close();
@@ -143,8 +145,7 @@ export class AddAssociationDialog {
   }
 
   submit() {
-    //TODO
-    const newElement = {}
-    this.dialogRef.close(newElement);
+    this.associationService.createAssociation(this.nameControl.value,this.usersIDSelected!,["member","member"],this.assoForm!.id,this.verbalProces!.id)
+    .subscribe(x=> this.dialogRef.close(x));
   }
 }

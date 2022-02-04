@@ -40,7 +40,7 @@
       <p class="center">Création du procès verbal</p>
       <mat-form-field appearance="fill">
         <mat-label>Contenu</mat-label>
-      <textarea matInput
+      <textarea matInput [formControl]="contentControl"
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
