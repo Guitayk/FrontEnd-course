@@ -98,6 +98,19 @@ export class AssociationsService {
     )
   }
 
+  public deleteMember(associationName : String, userId : number) : Observable<void>{
+    const endpoint = "/roles";
+    return from(this.apiHelper.delete({endpoint, data:{associationName : associationName, userId : userId}}))
+  }
+
+  public updateRole(associationName : String, userId : number, name : String) : Observable<Membre>{
+    const endpoint = "/roles";
+    return from(this.apiHelper.put({endpoint, data:{associationName : associationName, userId : userId, name : name}}))
+    .pipe(map(object =>{
+      return new Membre(object.user.id, object.user.lastname, object.user.firstname, object.user.age, object.name)
+    }))
+  }
+
   private associationInCriteria(association : Association, criteria?: AssociationCriteria) : boolean{
     if(!criteria) return true;
 
