@@ -12,6 +12,10 @@ table .mat-column-actions {
 }
 
 //----- Dialog CSS
+.mat-dialog {
+    overflow: scroll;
+}
+
 .mat-dialog-actions {
     padding: 0;
     display: block;
@@ -56,10 +60,25 @@ table .mat-column-actions {
     display: block;
 }
 
+.roleinput {
+    width: 5em;
+    border: 0;
+    background-color: rgb(238, 238, 238);
+}
 
 
 :host .mat-button-base {
     margin-left: 10px;
+}
+
+.list-members mat-list-item {
+    height: 25px;
+}
+
+button.mat-mini-fab {
+    display: inline-block;
+    margin-top: 0px;
+    padding: 0;
 }
 
 //------- Search line

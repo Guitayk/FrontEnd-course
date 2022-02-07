@@ -8,12 +8,70 @@
     <mat-label>Nom de l'association</mat-label>
     <input matInput [formControl]="nameControl" readonly>
   </mat-form-field>
+  <br>
   <mat-form-field appearance="fill">
     <mat-label>Date de création</mat-label>
-    <input matInput [matDatepicker]="picker" [formControl]="creationDateControl">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <input matInput [formControl]="creationDateControl" readonly>
+    <!-- <input matInput [matDatepicker]="picker" [formControl]="creationDateControl" readonly> -->
+    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker> -->
   </mat-form-field>
+</div>
+<br>
+<div class="list-members" *ngIf="data.members && data.members.length > 0 else elseBlock">
+  <div class="row">
+    <img src="https://img.icons8.com/ios-filled/25/000000/conference-call.png"/>
+    <h4>Liste des membres</h4>
+  </div>
+  <table>
+    <tbody>
+      <tr role="listitem" *ngFor="let member of this.data.members">
+        <td>{{member.firstname}} {{member.lastname}}</td>
+        <td>[ <input class="roleinput" (change)="updateRole(member,valueRole.value)" #valueRole value="{{member.role}}"/> ]</td>
+        <td>
+          <a (click)="deleteAMember(member)"> 
+            <img src="https://img.icons8.com/dotty/20/000000/delete-forever.png"/>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <!-- <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let member of this.data.members" >
+      
+      {{member.firstname}} {{member.lastname}} 
+      [ <input class="roleinput" (change)="updateRole(member,valueRole.value)" #valueRole value="{{member.role}}"/> ]
+      <a (click)="deleteAMember(member)"> 
+        <img src="https://img.icons8.com/dotty/20/000000/delete-forever.png"/>
+      </a>
+    </mat-list-item>
+  </mat-list> -->
+</div>
+<ng-template #elseBlock class="no-member">
+  <h3 class="center">Cette assocation n'a aucun membre.</h3>
+</ng-template>
+<br>
+<div class="row">
+  <img src="https://img.icons8.com/ios-filled/25/000000/add-user-group-man-man--v2.png"/>
+  <h4>Ajouter un membre</h4>
+</div>
+
+<div class="add-member">
+  <mat-form-field appearance="fill">
+    <mat-label>Utilisateurs</mat-label>
+    <mat-select [formControl]="newplayerSelected">
+      <mat-option *ngFor="let user of otherPlayers" [value]="user">{{user.firstname}} {{user.lastname}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Rôle</mat-label>
+    <input matInput [formControl]="newrole">
+  </mat-form-field>
+  <button mat-mini-fab color="primary" (click)="addMember()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
 </div>
 
 <div mat-dialog-actions>
