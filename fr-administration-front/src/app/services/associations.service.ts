@@ -87,9 +87,9 @@ export class AssociationsService {
     return from(this.apiHelper.delete({endpoint}))
   }
 
-  public addMember(associationName : String, userId : Number, role : String) : Observable<Membre>{
+  public addMember(associationName : String, userId : Number, name : String) : Observable<Membre>{
     const endpoint = "/roles"
-    return from(this.apiHelper.post({endpoint, data:{associationName, userId, role}})).pipe(map(x => <Membre> x))
+    return from(this.apiHelper.post({endpoint, data:{associationName, userId, name}})).pipe(map(x => <Membre> x))
   }
 
   public getAssociationMembers(associationName : string) : Observable<Membre[]>{
