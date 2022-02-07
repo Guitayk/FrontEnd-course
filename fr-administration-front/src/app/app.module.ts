@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatTableModule} from '@angular/material/table'; 
-import {MatButtonModule} from '@angular/material/button'; 
+import { MatTableModule } from '@angular/material/table'; 
+import { MatButtonModule } from '@angular/material/button'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddUserDialog, SeeUserDialog, UsersListComponent } from './users-list/users-list.component';
@@ -20,9 +20,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule } from '@angular/material/core';
 import { AccountComponent, UpdateUserDialog } from './account/account.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {TextFieldModule} from '@angular/cdk/text-field';
-import {MatListModule} from '@angular/material/list'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatListModule } from '@angular/material/list'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon'; 
+
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import {MatListModule} from '@angular/material/list';
     MatNativeDateModule,
     MatCheckboxModule,
     TextFieldModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenHttpInterceptor, multi: true},

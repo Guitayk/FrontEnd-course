@@ -3,12 +3,15 @@ import { Association } from '../dto/Association';
 import { AssociationsService } from '../services/associations.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, range, switchMap } from 'rxjs';
 import { AssociationForm } from '../dto/AssociationForm';
 import { VerbalProcess } from '../dto/VerbalProcess';
 import { User } from '../dto/User';
 import { UsersService } from '../services/users.service';
 import { MatListOption } from '@angular/material/list';
+import { Membre } from '../dto/Membre';
+import { VerbalProcessService } from '../services/verbal-process.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-associations-list',
@@ -33,7 +36,9 @@ export class AssociationsListComponent implements OnInit {
 
   openEditDialog(association:Association): void {
     const dialogRef = this.dialog.open(UpdateAssociationDialog, {
-      width: '30em',
+      width: '35em',
+      autoFocus: false,
+      maxHeight: '90vh',
       data: association,
     });
 
@@ -47,12 +52,16 @@ export class AssociationsListComponent implements OnInit {
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddAssociationDialog, {
-      height: "auto",
       width: '30em',
-
+      autoFocus: false,
+      maxHeight: '90vh',
     });
-    //TODO
-    dialogRef.afterClosed().subscribe(newAsso => { this.dataSource = this.dataSource.concat([newAsso])});
+
+    dialogRef.afterClosed().subscribe(newAsso => { 
+      if(newAsso !== undefined) {
+        this.dataSource = this.dataSource.concat([newAsso]);
+      }
+    })
   }
 
   filterAssociations(name:string): Observable<Association[]> {
@@ -69,35 +78,73 @@ export class AssociationsListComponent implements OnInit {
 
 }
 
-
+//----------------------------------------------- Update association dialog -----------------------------------------------//
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'edit-association.dialog.html',
   styleUrls: ['./associations-list.component.scss']
 })
-export class UpdateAssociationDialog {
+export class UpdateAssociationDialog implements OnInit{
 
   nameControl = new FormControl(this.data.name);
   creationDateControl = new FormControl(this.data.dateOfCreation);
   listMembersControl  = new FormControl(this.data.members);
+  newplayerSelected = new FormControl();
+  newrole = new FormControl();
+
+  otherPlayers: User[] = []
   
 
   constructor(
-    public dialogRef: MatDialogRef<UpdateAssociationDialog>,private associationService: AssociationsService,
+    public dialogRef: MatDialogRef<UpdateAssociationDialog>,private associationService: AssociationsService,private userService: UsersService,
     @Inject(MAT_DIALOG_DATA) public data: Association,
-  ) {console.log(this.data.members)}
+  ) {
+      this.userService.searchUsers().subscribe(x=> {
+        if (this.data.members) {
+          const ids = this.data.members.flatMap(x=> x.id)
+          this.otherPlayers = x.filter(y=> !ids.includes(y.id))
+        }else 
+          this.otherPlayers = x
+      })
+  }
+
+  addMember() {
+    this.associationService.addMember(this.data.name,this.newplayerSelected.value.id,this.newrole.value).subscribe(x => {
+      this.data = new Association(this.data.name,this.data.dateOfCreation,this.data.members.concat(x))
+    });
+    // Reset all elements
+    this.newplayerSelected = new FormControl();
+    this.newrole = new FormControl();
+      this.userService.searchUsers().subscribe(x=> {
+        const ids = this.data.members.flatMap(x=> x.id)
+        this.otherPlayers = x.filter(y=> !ids.includes(y.id))
+      })
+  }
+
+  updateRole(member:Membre, newValue:string) {
+    this.associationService.updateRole(this.data.name,member.id,newValue)
+  }
+  
+  deleteAMember(member : Membre) {
+    this.associationService.deleteMember(this.data.name,member.id).subscribe(x=> this.data.members= this.data.members.filter(x=>x.id != member.id))
+  }
 
   cancel(): void {
     this.dialogRef.close();
   }
 
   submit(): void {
-    const newAsso :Association = {"name": this.data.name, "dateOfCreation": this.creationDateControl.value, "members": this.data.members}
+    const newAsso :Association = {"name": this.data.name, "dateOfCreation": new DatePipe('en').transform(this.creationDateControl.value, 'yyyy-MM-dd')!, "members": this.data.members}
     this.associationService.updateAssociation(this.data.name,newAsso);
     this.dialogRef.close(newAsso);
   }
+
+  ngOnInit(): void {
+    // this.listMembersControl.valueChanges.subscribe(x=> console.log(x));
+  }
 }
 
+//----------------------------------------------- Add association dialog -----------------------------------------------//
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'add-association.dialog.html',
@@ -108,13 +155,14 @@ export class AddAssociationDialog {
   nameControl = new FormControl();
   creationDateControl = new FormControl();
   contentControl = new FormControl();
-  usersIDSelected : number[] |undefined;
+  
   assoForm : AssociationForm | undefined;
   verbalProces : VerbalProcess | undefined;
+  usersIDSelected : number[] = [];
   users: User[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<AddAssociationDialog>,private associationService: AssociationsService, private userService: UsersService,
+    public dialogRef: MatDialogRef<AddAssociationDialog>,private associationService: AssociationsService, private userService: UsersService, private verbalprocesService: VerbalProcessService,
     @Inject(MAT_DIALOG_DATA) public data: Association,
   ) {
     this.userService.searchUsers().subscribe(x=> this.users=x);
@@ -123,9 +171,9 @@ export class AddAssociationDialog {
   validateDossier() {
     this.associationService.createAssociationForm().subscribe(newAssoForm => this.assoForm = newAssoForm);
   }
+
   validateLegal() {   
-    this.associationService.validationLegalService(this.assoForm!).subscribe(newAssoForm => {this.assoForm = newAssoForm;console.log(this.assoForm)});
-    
+    this.associationService.validationLegalService(this.assoForm!).subscribe(newAssoForm => this.assoForm = newAssoForm);
   }
 
   validateFinancial() {    
@@ -133,7 +181,9 @@ export class AddAssociationDialog {
   }
 
   validateProcesVerbal() {
-    this.associationService.creationVerbalProcess(this.usersIDSelected!,this.contentControl.value,this.creationDateControl.value).subscribe(newVerbalProcess => this.verbalProces = newVerbalProcess);
+    const datepipe: DatePipe = new DatePipe('en-US')
+    let formattedDate = datepipe.transform(this.creationDateControl.value, 'YYYY-MM-dd')! //TODO voir ce qu'on fait des dates
+    this.verbalprocesService.creationVerbalProcess(this.usersIDSelected!,this.contentControl.value,formattedDate).subscribe(newVerbalProcess => this.verbalProces = newVerbalProcess);
   }
 
   onMembersListChange(options: MatListOption[]) {
@@ -145,7 +195,10 @@ export class AddAssociationDialog {
   }
 
   submit() {
-    this.associationService.createAssociation(this.nameControl.value,this.usersIDSelected!,["member","member"],this.assoForm!.id,this.verbalProces!.id)
+    const roles = [];
+    for(var i in this.usersIDSelected)
+      roles.push("membre " +i)
+    this.associationService.createAssociation(this.nameControl.value,this.usersIDSelected,roles,this.assoForm!.id,this.verbalProces!.id)
     .subscribe(x=> this.dialogRef.close(x));
   }
 }
