@@ -7,13 +7,14 @@ import { User } from '../dto/User';
 import { VerbalProcess } from '../dto/VerbalProcess';
 import { ApiHelperService } from './api-helper.service';
 import { AssociationCriteria } from './criteria/AssociationCriteria';
+import { VerbalProcessService } from './verbal-process.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssociationsService {
 
-  constructor(private apiHelper : ApiHelperService) { }
+  constructor(private apiHelper : ApiHelperService, private verbalProcessService : VerbalProcessService) { }
 
   public getAssociationByName(associationName : string) : Observable<Association>{
     const endpoint = "/associations/" + associationName;
@@ -68,13 +69,6 @@ export class AssociationsService {
     )
   }
 
-  public creationVerbalProcess(idVoters : number[], content : String, date : String) : Observable<VerbalProcess>{
-    const endpoint = "/verbal-processes";
-    return from(this.apiHelper.post({endpoint, data : {idVoters : idVoters, content : content, date : date}})).pipe(
-      map(object => <VerbalProcess> object)
-    )
-  }
-
   public updateAssociation(associationName : string, association : Association) : Observable<Association>{
     const endpoint = "/associations/" + associationName;
     return from(this.apiHelper.put({endpoint, data : association})).pipe(
@@ -85,8 +79,17 @@ export class AssociationsService {
   }
 
   public deleteAssociation(associationName : string) : Observable<void>{
+    this.verbalProcessService.deleteVerbalProcessesOfAssociation(associationName)
+    this.getAssociationMembers(associationName).pipe(map(
+      members => members.forEach(member => this.deleteMember(associationName, member.id))
+    ))
     const endpoint = "/associations/" + associationName;
     return from(this.apiHelper.delete({endpoint}))
+  }
+
+  public addMember(associationName : String, userId : Number, role : String) : Observable<Membre>{
+    const endpoint = "/roles"
+    return from(this.apiHelper.post({endpoint, data:{associationName, userId, role}})).pipe(map(x => <Membre> x))
   }
 
   public getAssociationMembers(associationName : string) : Observable<Membre[]>{
@@ -100,7 +103,7 @@ export class AssociationsService {
 
   public deleteMember(associationName : String, userId : number) : Observable<void>{
     const endpoint = "/roles";
-    return from(this.apiHelper.delete({endpoint, data:{associationName : associationName, userId : userId}}))
+    return from(this.apiHelper.delete({endpoint, queryParams:{associationName : associationName, userId : userId}}))
   }
 
   public updateRole(associationName : String, userId : number, name : String) : Observable<Membre>{
