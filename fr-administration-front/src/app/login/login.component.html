@@ -8,10 +8,10 @@
     <h3>Connexion à la plateforme</h3>
 
     <label for="username">Nom d'utilisateur</label>
-    <input type="text" id="username" placeholder="username" />
+    <input type="text" id="username" placeholder="username" (keyup.enter)="login()" />
 
     <label for="password">Mot de passe</label>
-    <input type="password" id="password" placeholder="password" />
+    <input type="password" id="password" placeholder="password" (keyup.enter)="login()"/>
 
     <h4 id="message">{{errorMessage}}</h4>
     <a mat-raised-button color="primary" (click)="login()">Connexion</a>

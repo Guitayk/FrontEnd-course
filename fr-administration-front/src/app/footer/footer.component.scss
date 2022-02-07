@@ -20,3 +20,8 @@
     text-align: center;
     font-size: 18px;
 }
+
+:host a {
+    text-decoration: none;
+    color: black;
+}
