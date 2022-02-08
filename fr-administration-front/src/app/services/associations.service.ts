@@ -40,8 +40,8 @@ export class AssociationsService {
   public createAssociation(name : String, idUsers : number[], roles : String[], associationFormId : number, verbalProcessId : number){
     const endpoint = "/associations";
     return from(this.apiHelper.post({endpoint, data : {name: name, idUsers: idUsers, roles: roles, associationFormId: associationFormId, verbalProcessId: verbalProcessId}})).pipe(
-      map(object => {
-        return <Association> object;
+      switchMap(retour =>{
+        return this.getAssociationByName(retour.name)
       })
     )
   }
