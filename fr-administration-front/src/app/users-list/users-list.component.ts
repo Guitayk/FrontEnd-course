@@ -24,9 +24,8 @@ export class UsersListComponent implements OnInit {
   constructor(public dialog: MatDialog,private userService: UsersService) {}
 
 
-  deleteAssociation(id:number) {
-    this.userService.deleteUser(id);
-    this.dataSource = this.dataSource.filter(x => x.id != id);
+  deleteUser(id:number) {
+    this.userService.deleteUser(id).subscribe(()=>this.dataSource = this.dataSource.filter(x => x.id != id));
   }
 
   openAddDialog(): void {

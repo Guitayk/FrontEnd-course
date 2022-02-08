@@ -30,8 +30,7 @@ export class AssociationsListComponent implements OnInit {
   constructor(public dialog: MatDialog,private associationService: AssociationsService) { }
 
   deleteAssociation(name:string) {
-    this.associationService.deleteAssociation(name);
-    this.dataSource = this.dataSource.filter(x => x.name != name);
+    this.associationService.deleteAssociation(name).subscribe(()=>this.dataSource = this.dataSource.filter(x => x.name != name));
   }
 
   openEditDialog(association:Association): void {
