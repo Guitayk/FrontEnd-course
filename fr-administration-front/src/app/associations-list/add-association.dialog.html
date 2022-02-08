@@ -48,7 +48,7 @@
         {{user.firstname}} {{user.lastname}}
       </mat-list-option>
     </mat-selection-list>
-    <button mat-flat-button color="primary" (click)="validateProcesVerbal()">
+    <button mat-flat-button color="primary" (click)="validateProcesVerbal()" [disabled]="!contentControl.value">
       Mise en place du procès verbal
     </button>
   </div>

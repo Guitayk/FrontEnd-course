@@ -11,7 +11,8 @@
   <br>
   <mat-form-field appearance="fill">
     <mat-label>Date de création</mat-label>
-    <input matInput [formControl]="creationDateControl" readonly>
+    <input matInput value="{{creationDateControl.value | date:'dd/MM/yyyy'}}"readonly>
+    <!-- <input matInput [formControl]="creationDateControl" value="creationDateControl.value"readonly> -->
     <!-- <input matInput [matDatepicker]="picker" [formControl]="creationDateControl" readonly> -->
     <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker> -->
@@ -27,7 +28,12 @@
     <tbody>
       <tr role="listitem" *ngFor="let member of this.data.members">
         <td>{{member.firstname}} {{member.lastname}}</td>
-        <td>[ <input class="roleinput" (change)="updateRole(member,valueRole.value)" #valueRole value="{{member.role}}"/> ]</td>
+        <td>
+          [<input class="roleinput"  #valueRole value="{{member.role}}"/>]
+          <button class="save-role" (click)="updateRole(member,valueRole.value)" [disabled]="member.role === valueRole.value">
+            <img src="https://img.icons8.com/windows/25/00AA00/save--v1.png"/>
+          </button>
+        </td>
         <td>
           <a (click)="deleteAMember(member)"> 
             <img src="https://img.icons8.com/dotty/20/000000/delete-forever.png"/>
