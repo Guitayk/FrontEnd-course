@@ -13,7 +13,11 @@ const routes: Routes = [
   {path: 'account',component: AccountComponent,canActivate: [AuthGuard]},
   {path: 'home',component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'users',component: UsersListComponent, canActivate: [AuthGuard]},
+  {path: 'users/create',component: UsersListComponent, canActivate: [AuthGuard]},
+  {path: 'users/:id',component: UsersListComponent, canActivate: [AuthGuard]},
   {path: 'associations',component: AssociationsListComponent, canActivate: [AuthGuard]},
+  {path: 'associations/create',component: AssociationsListComponent, canActivate: [AuthGuard]},
+  {path: 'associations/:name',component: AssociationsListComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

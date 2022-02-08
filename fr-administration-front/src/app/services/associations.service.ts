@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { concatMap, forkJoin, from, map, merge, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
+import { forkJoin, from, map,Observable, of, switchMap } from 'rxjs';
 import { Association } from '../dto/Association';
 import { AssociationForm } from '../dto/AssociationForm';
 import { Membre } from '../dto/Membre';
-import { User } from '../dto/User';
-import { VerbalProcess } from '../dto/VerbalProcess';
 import { ApiHelperService } from './api-helper.service';
 import { AssociationCriteria } from './criteria/AssociationCriteria';
+import { UsersService } from './users.service';
 import { VerbalProcessService } from './verbal-process.service';
 
 @Injectable({
@@ -14,7 +13,7 @@ import { VerbalProcessService } from './verbal-process.service';
 })
 export class AssociationsService {
 
-  constructor(private apiHelper : ApiHelperService, private verbalProcessService : VerbalProcessService) { }
+  constructor(private apiHelper : ApiHelperService, private verbalProcessService : VerbalProcessService,private userService : UsersService) { }
 
   public getAssociationByName(associationName : string) : Observable<Association>{
     const endpoint = "/associations/" + associationName;
@@ -103,7 +102,9 @@ export class AssociationsService {
 
   public addMember(associationName : String, userId : Number, name : String) : Observable<Membre>{
     const endpoint = "/roles"
-    return from(this.apiHelper.post({endpoint, data:{associationName, userId, name}})).pipe(map(x => <Membre> x))
+    return from(this.apiHelper.post({endpoint, data:{associationName, userId, name}}))
+    .pipe(switchMap(x => this.userService.getUserById(x.user)
+    .pipe(map(user => new Membre(user.id, user.lastname, user.firstname, user.age, x.name)))))
   }
 
   public getAssociationMembers(associationName : string) : Observable<Membre[]>{
