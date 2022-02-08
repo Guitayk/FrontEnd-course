@@ -42,6 +42,13 @@ export class UsersService {
     )
   }
 
+  public getUserRoles(userId : number){
+    const endpoint = "/users/" + userId;
+    return from(this.apiHelper.get({endpoint})).pipe(
+      map(res => res.map((role: { association: { name: any; }; name: any; }) =>({ association: role.association.name, role: role.name })))
+    ) 
+  }
+
   public createUser(user : User) : Observable<User>{
     const endpoint = "/users";
     return from(this.apiHelper.post({endpoint, data: user})).pipe(
