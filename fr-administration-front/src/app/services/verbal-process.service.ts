@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, from, map, Observable, switchMap, tap } from 'rxjs';
+import { forkJoin, from, map, Observable, of, switchMap, tap, timer } from 'rxjs';
 import { VerbalProcess } from '../dto/VerbalProcess';
 import { ApiHelperService } from './api-helper.service';
 
@@ -18,10 +18,11 @@ export class VerbalProcessService {
       map(
       array => {
         const vp = <VerbalProcess[]> array
-        var observables : Observable<void>[] = []
+        var observables : Observable<any>[] = []
         vp.forEach(element => {
           observables.push(from(this.apiHelper.delete({endpoint :"/verbal-processes/" + element.id})))
         });
+        observables.push(of(0))
         return observables
       }),
       switchMap(observables => {

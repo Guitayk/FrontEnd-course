@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { concatMap, forkJoin, from, map, merge, mergeMap, Observable, switchMap, tap } from 'rxjs';
+import { concatMap, forkJoin, from, map, merge, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { Association } from '../dto/Association';
 import { AssociationForm } from '../dto/AssociationForm';
 import { Membre } from '../dto/Membre';
@@ -80,16 +80,16 @@ export class AssociationsService {
 
   public deleteAssociation(associationName : string) : Observable<void>{
     
-    var observables : Observable<void>[] = []
     return this.verbalProcessService.deleteVerbalProcessesOfAssociation(associationName)
     .pipe(
       switchMap(() => this.getAssociationMembers(associationName)),
       map(members => {
-        console.log(members)
         const membersArray = <Membre[]> members
+        var observables : Observable<any>[] = []
         membersArray.forEach(member => {
           observables.push(this.deleteMember(associationName, member.id))
         })
+        observables.push(of(0))
         return observables
       }),
       switchMap(x => forkJoin(x)),
