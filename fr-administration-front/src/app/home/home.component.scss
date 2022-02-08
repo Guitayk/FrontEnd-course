@@ -1,8 +1,11 @@
+:host { display :block;min-height: 65vh;}
+
 :host h1, :host h3 {
+    margin-top: 2em;
     text-align: center;
 }
 
-:host h4 {
+:host h4 { 
     margin-left: 3em;
 }
 

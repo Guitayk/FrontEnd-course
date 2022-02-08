@@ -1,0 +1,92 @@
+//----- Dialog CSS
+table {
+    width: 70%;
+    margin-left: 10%;
+}
+
+.mat-dialog-actions {
+    padding: 0;
+    display: block;
+}
+.mat-dialog-actions button {
+    float: right;
+    margin: auto;
+}
+
+.mat-dialog-content {
+    display: block;
+    margin: auto;
+}
+
+:host button {
+    display: block;
+    margin: 2em auto;
+    padding: 0 15px;
+}
+
+.mat-dialog {
+    overflow: scroll;
+}
+
+.validators button {
+    margin: 3px;
+    display: inline;
+}
+
+.procesverbal {
+    border: solid;
+    margin: 1em auto;
+    
+}
+
+.procesverbal mat-selection-list {
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 10em;
+}
+
+.procesverbal mat-form-field, .procesverbal button{
+    width: 90%;
+    margin: 5px auto;
+    display: block;
+}
+
+.roleinput {
+    width: 5em;
+    border: 0;
+    background-color: rgb(238, 238, 238);
+}
+
+:host .mat-button-base {
+    margin-left: 10px;
+}
+
+.list-members mat-list-item {
+    height: 25px;
+}
+
+// Div to add a member
+.add-member {
+    margin-top: 10px;
+}
+
+//Button to add a member
+button.mat-mini-fab {
+    display: inline-block;
+    margin-top: 0px;
+    padding: 0;
+}
+
+button.save-role {
+    display: inline;
+    padding : 0;
+    margin : auto 1px;
+}
+
+button.save-role > img{
+    margin : auto 1px;
+}
+
+button.save-role:disabled {
+    filter: grayscale(1);
+}

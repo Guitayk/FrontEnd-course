@@ -3,7 +3,7 @@ import { Association } from '../dto/Association';
 import { AssociationsService } from '../services/associations.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, range, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { AssociationForm } from '../dto/AssociationForm';
 import { VerbalProcess } from '../dto/VerbalProcess';
 import { User } from '../dto/User';
@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AssociationsListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'dateOfCreation','actions'];
+  displayedColumns: string[] = ['name', 'dateOfCreation','members','actions'];
   dataSource: Association[] = [];
 
   searchGroup = new FormGroup({
@@ -57,7 +57,7 @@ export class AssociationsListComponent implements OnInit {
       maxHeight: '90vh',
     });
 
-    dialogRef.afterClosed().subscribe(newAsso => { 
+    dialogRef.afterClosed().subscribe(newAsso => {
       if(newAsso !== undefined) {
         this.dataSource = this.dataSource.concat([newAsso]);
       }
@@ -82,9 +82,9 @@ export class AssociationsListComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'edit-association.dialog.html',
-  styleUrls: ['./associations-list.component.scss']
+  styleUrls: ["../dialog.component.scss"]
 })
-export class UpdateAssociationDialog implements OnInit{
+export class UpdateAssociationDialog {
 
   nameControl = new FormControl(this.data.name);
   creationDateControl = new FormControl(this.data.dateOfCreation);
@@ -122,7 +122,9 @@ export class UpdateAssociationDialog implements OnInit{
   }
 
   updateRole(member:Membre, newValue:string) {
-    this.associationService.updateRole(this.data.name,member.id,newValue)
+    this.associationService.updateRole(this.data.name,member.id,newValue).subscribe( x=> {
+      this.data.members.filter(y=>y.id === x.id)[0].role = x.role
+    })
   }
   
   deleteAMember(member : Membre) {
@@ -138,17 +140,13 @@ export class UpdateAssociationDialog implements OnInit{
     this.associationService.updateAssociation(this.data.name,newAsso);
     this.dialogRef.close(newAsso);
   }
-
-  ngOnInit(): void {
-    // this.listMembersControl.valueChanges.subscribe(x=> console.log(x));
-  }
 }
 
 //----------------------------------------------- Add association dialog -----------------------------------------------//
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'add-association.dialog.html',
-  styleUrls: ['./associations-list.component.scss']
+  styleUrls: ["../dialog.component.scss"]
 })
 export class AddAssociationDialog {
 

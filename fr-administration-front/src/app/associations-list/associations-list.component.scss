@@ -1,3 +1,5 @@
+:host { display :block; min-height: 69vh;}
+
 table {
     margin: 5% 10%;
     width: 75%;
@@ -11,74 +13,8 @@ table .mat-column-actions {
     width: 12em;
 }
 
-//----- Dialog CSS
-.mat-dialog {
-    overflow: scroll;
-}
-
-.mat-dialog-actions {
-    padding: 0;
-    display: block;
-}
-
-.mat-dialog-actions button {
-    float: right;
-    margin: auto;
-}
-
-.mat-dialog-content {
-    display: block;
-    margin: auto;
-}
-
-:host button {
-    display: block;
-    margin: 2em auto;
-    padding: 0 15px;
-}
-
-.validators button {
-    margin: 3px;
-    display: inline;
-}
-
-.procesverbal {
-    border: solid;
-    margin: 1em auto;
-    
-}
-
-.procesverbal mat-selection-list {
-    overflow: hidden;
-    overflow-y: scroll;
-    max-height: 10em;
-}
-
-.procesverbal mat-form-field, .procesverbal button{
-    width: 90%;
-    margin: 5px auto;
-    display: block;
-}
-
-.roleinput {
-    width: 5em;
-    border: 0;
-    background-color: rgb(238, 238, 238);
-}
-
-
-:host .mat-button-base {
-    margin-left: 10px;
-}
-
-.list-members mat-list-item {
-    height: 25px;
-}
-
-button.mat-mini-fab {
-    display: inline-block;
-    margin-top: 0px;
-    padding: 0;
+td.mat-column-members {
+    padding-left: 1.5em;
 }
 
 //------- Search line

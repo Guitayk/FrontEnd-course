@@ -42,7 +42,7 @@ export class AccountComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-dialog',
   templateUrl: 'edit-user.dialog.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ["../dialog.component.scss"]
 })
 export class UpdateUserDialog {
 

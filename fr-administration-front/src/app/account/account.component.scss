@@ -1,6 +1,9 @@
+:host { display :block;min-height: 71vh;}
+
 :host .account {
     display: block;
-    margin : 10% auto;
+    padding : 10% 0 ;
+    margin : auto
 }
 
 :host img,button {

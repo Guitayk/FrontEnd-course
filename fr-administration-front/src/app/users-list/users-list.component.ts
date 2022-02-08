@@ -61,7 +61,7 @@ export class UsersListComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'see-user.dialog.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: ["../dialog.component.scss"]
 })
 export class SeeUserDialog {
 
@@ -82,7 +82,7 @@ export class SeeUserDialog {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'add-user.dialog.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: ["../dialog.component.scss"]
 })
 export class AddUserDialog {
 
