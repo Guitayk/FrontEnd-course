@@ -43,7 +43,7 @@ export class UsersService {
     )
   }
 
-  public getUserRoles(userId : number){
+  public getUserRoles(userId : number) : Observable<Role>{
     const endpoint = "/users/" + userId;
     return from(this.apiHelper.get({endpoint})).pipe(
       map(res => res.map((_role: any) => new Role(res.association.associationName, res.name)))
