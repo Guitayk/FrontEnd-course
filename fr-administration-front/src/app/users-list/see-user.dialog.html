@@ -16,7 +16,16 @@
         <mat-label>Age</mat-label>
         <input matInput [formControl]="ageControl" readonly>
     </mat-form-field>
+
+    <div class="row">
+        <img src="https://img.icons8.com/ios-filled/25/000000/conference-call.png"/>
+        <h4>Liste des associations</h4>
+      </div>
+    <ul>
+        <li *ngFor="let role of data_role"> {{role.associationName}} [<span class="roleinput">{{role.name }}</span>]</li>
+    </ul>
 </div>
+
 
 <div mat-dialog-actions>
     <button mat-button (click)="onCancel()">Retour</button>

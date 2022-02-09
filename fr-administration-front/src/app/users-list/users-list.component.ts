@@ -8,6 +8,7 @@ import {
 } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Observable, switchMap } from "rxjs";
+import { Role } from "../dto/Role";
 import { User } from "../dto/User";
 import { UsersService } from "../services/users.service";
 
@@ -116,8 +117,11 @@ export class SeeUserDialog {
   constructor(
     public dialogRef: MatDialogRef<SeeUserDialog>,
     private userService: UsersService,
+    @Inject(MAT_DIALOG_DATA) public data_role: Role[],
     @Inject(MAT_DIALOG_DATA) public data: User,
-  ) {}
+    ) {
+      this.data_role = [];
+      this.userService.getUserRoles(this.data.id).subscribe(x => this.data_role = x)}
 
   onCancel(): void {
     this.dialogRef.close();
@@ -136,7 +140,6 @@ export class AddUserDialog {
 
   constructor(
     public dialogRef: MatDialogRef<AddUserDialog>,
-    private userService: UsersService,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) {}
 
