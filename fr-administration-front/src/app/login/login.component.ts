@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiHelperService } from '../services/api-helper.service';
 import { TokenStorageService } from '../services/token-storage.service';
