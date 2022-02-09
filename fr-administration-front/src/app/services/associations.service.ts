@@ -133,7 +133,7 @@ export class AssociationsService {
     if(!criteria) return true;
 
     if(criteria.name){
-      if(!association.name.includes(criteria.name)) return false;
+      if(!association.name.toLowerCase().includes(criteria.name.toLowerCase())) return false;
     }
 
     if(criteria.creationDate){

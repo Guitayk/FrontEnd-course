@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
+import { Role } from '../dto/Role';
 import { User } from '../dto/User';
 import { ApiHelperService } from './api-helper.service';
 import { UserCriteria } from './criteria/UserCriteria';
@@ -45,7 +46,7 @@ export class UsersService {
   public getUserRoles(userId : number){
     const endpoint = "/users/" + userId;
     return from(this.apiHelper.get({endpoint})).pipe(
-      map(res => res.map((role: { association: { name: any; }; name: any; }) =>({ association: role.association.name, role: role.name })))
+      map(res => res.map((_role: any) => new Role(res.association.associationName, res.name)))
     ) 
   }
 
