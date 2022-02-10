@@ -69,12 +69,16 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_ => this.location.replaceState("/users"));
   }
-
-  filterUsers(firstname: string, lastname: string): Observable<User[]> {
-    return this.userService.searchUsers({
-      "firstname": firstname,
-      "lastname": lastname,
-    });
+  
+  timeoutFiltres!:any;
+  filterUsers(firstname: string, lastname: string){
+    clearTimeout(this.timeoutFiltres)
+    this.timeoutFiltres = setTimeout(()=>{
+      this.userService.searchUsers({
+        "firstname": firstname,
+        "lastname": lastname,
+      }).subscribe(x=> this.dataSource = x)
+    },250)
   }
 
   ngOnInit(): void {
@@ -82,14 +86,10 @@ export class UsersListComponent implements OnInit {
       this.dataSource = result
     );
 
-    this.searchGroup.valueChanges.pipe(
-      switchMap((_) =>
-        this.filterUsers(
-          this.searchGroup.get("firstnameFilter")?.value,
-          this.searchGroup.get("lastnameFilter")?.value,
-        )
-      ),
-    ).subscribe((x) => this.dataSource = x);
+    this.searchGroup.valueChanges.subscribe(()=>this.filterUsers(
+      this.searchGroup.get("firstnameFilter")?.value,
+      this.searchGroup.get("lastnameFilter")?.value,
+    ));
 
     // Manage routing
     if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === "create") {

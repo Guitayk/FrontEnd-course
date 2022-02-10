@@ -79,8 +79,12 @@ export class AssociationsListComponent implements OnInit {
     });
   }
 
-  filterAssociations(name: string): Observable<Association[]> {
-    return this.associationService.searchAssociations({ "name": name });
+  timeoutFilter!:any
+  filterAssociations(name: string){
+    clearTimeout(this.timeoutFilter)
+    this.timeoutFilter = setTimeout(()=>{
+      this.associationService.searchAssociations({ "name": name }).subscribe(x=>this.dataSource = x)
+    }, 250)
   }
 
   ngOnInit(): void {
@@ -88,11 +92,7 @@ export class AssociationsListComponent implements OnInit {
       this.dataSource = result
     );
 
-    this.searchGroup.valueChanges.pipe(
-      switchMap((_) =>
-        this.filterAssociations(this.searchGroup.get("nameFilter")?.value)
-      ),
-    ).subscribe((x) => this.dataSource = x);
+    this.searchGroup.valueChanges.subscribe(() => this.filterAssociations(this.searchGroup.get("nameFilter")?.value));
 
     // Manage routing
     if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === "create") {
