@@ -42,7 +42,7 @@ table {
 .procesverbal mat-selection-list {
     overflow: hidden;
     overflow-y: scroll;
-    max-height: 10em;
+    max-height: 9em;
 }
 
 .procesverbal mat-form-field, .procesverbal button{
@@ -58,7 +58,7 @@ table {
 }
 
 :host .mat-button-base {
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .list-members mat-list-item {

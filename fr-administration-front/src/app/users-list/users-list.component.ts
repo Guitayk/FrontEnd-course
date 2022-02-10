@@ -59,12 +59,15 @@ export class UsersListComponent implements OnInit {
           this.dataSource = this.dataSource.concat([newUser]);
         });
       }
+      this.location.replaceState("/users");
     });
   }
 
   openSeeDialog(user: User): void {
     this.location.replaceState("/users/" + user.id);
-    this.dialog.open(SeeUserDialog, { width: "400px", data: user });
+    const dialogRef = this.dialog.open(SeeUserDialog, { width: "400px", data: user });
+
+    dialogRef.afterClosed().subscribe(_ => this.location.replaceState("/users"));
   }
 
   filterUsers(firstname: string, lastname: string): Observable<User[]> {

@@ -59,6 +59,7 @@ export class AssociationsListComponent implements OnInit {
         this.dataSource[index].dateOfCreation = result.dateOfCreation;
         this.dataSource[index].members = result.members;
       }
+      this.location.replaceState("/associations");
     });
   }
 
@@ -74,6 +75,7 @@ export class AssociationsListComponent implements OnInit {
       if (newAsso !== undefined) {
         this.dataSource = this.dataSource.concat([newAsso]);
       }
+      this.location.replaceState("/associations");
     });
   }
 
