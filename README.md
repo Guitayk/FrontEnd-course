@@ -83,6 +83,7 @@ On peut accéder à l'ensemble des pages et des modals au travers de routes.
 - '' : Page de connexion
 - '/login' : Page de connexion
 - '/account' : Page de compte :lock:
+- '/account/edit' : Modification des données du compte :lock:
 - '/home' : Page d'accueil :lock:
 - '/users' : Liste des utilisateurs :lock:
 - '/users/create': Création d'un utilisateur :lock:

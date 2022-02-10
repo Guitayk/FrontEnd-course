@@ -95,10 +95,7 @@ export class AssociationsListComponent implements OnInit {
     ).subscribe((x) => this.dataSource = x);
 
     // Manage routing
-    if (
-      this.route.snapshot.url.length > 1 &&
-      this.route.snapshot.url[1].path === "create"
-    ) {
+    if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === "create") {
       this.openAddDialog();
     } else {
       this.route.paramMap.subscribe((res) => {

@@ -1,6 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { User } from '../dto/User';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UsersService } from '../services/users.service';
@@ -13,9 +15,14 @@ import { UsersService } from '../services/users.service';
 export class AccountComponent implements OnInit {
   @Input() user:User | undefined;
 
-  constructor(public dialog: MatDialog,private tokenStorageService: TokenStorageService, private userService: UsersService) { }
+  constructor(public dialog: MatDialog,
+    private tokenStorageService: TokenStorageService,
+    private userService: UsersService,
+    private route: ActivatedRoute,
+    private location: Location) {}
 
   openDialog(user:User): void {
+    this.location.replaceState("/account/edit");
     const dialogRef = this.dialog.open(UpdateUserDialog, {
       width: '30em',
       data: user,
@@ -27,15 +34,18 @@ export class AccountComponent implements OnInit {
         this.user!.lastname = result.lastname;
         this.user!.age = result.age;
       }
+      this.location.replaceState("/account");
     });
   }
 
   ngOnInit(): void {
     const userId :number = this.tokenStorageService.getUserId();
-    this.userService.getUserById(userId).subscribe(x => this.user = x);
+    this.userService.getUserById(userId).subscribe(x => {
+      this.user = x;
+      if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === "edit")
+        this.openDialog(this.user);
+    });
   }
-
-  
 }
 
 
