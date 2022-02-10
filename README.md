@@ -5,39 +5,38 @@ Réalisé par Valentin Lorand et Guillaume Malherbe (étudiant ESIR3 - SI).
 
 Lien vers le répertoire GitHub : [https://github.com/Guitayk/FrontEnd-course]()
 
-## Structure du projet
-```
+## :house: Structure du projet
+```bash
 |-fr-administration-back : Partie backend du projet
 |-fr-administration-front : Partie frontend du projet
-|-images : Schémas du projet
+|-images : Illustrations
 ```
 
 ## :rocket: Démarrer le projet
 
-Lancement du backend :
-
+**Lancement du backend**
 ```bash
 cd fr-administration-back
 npm install
 npm start
 ```
 
-Lancement du frontend :
-
+**Lancement du frontend**
 ```bash
 cd fr-administration-front
 npm install
 npm start
 ```
+## :microscope: Tester l'application Angular
 
-## :microscope: Tester l'application Angular
-
-### Tests unitaires
+**Tests unitaires**
 ```bash
 cd fr-administration-front
 npm test
 ```
-### Tests end to end avec cypress
+
+ Nous avons orienté nos tests end-to-end sur les formulaires notamment celui de connexion et ceux qui permette de gérer les utilisateurs.
+**Tests end-to-end avec cypress**
 ```bash
 cd fr-administration-front
 npm install -d
@@ -78,16 +77,25 @@ Une fois connecté on accède à plusieurs fonctionnalités (elles sont listées
 
 On peut accéder à l'ensemble des pages et des modals au travers de routes via l'API suivante :
 
-  - '' : Page de connexion :unlock:
-  - '/login' : Page de connexion :unlock:
-  - '/account' : Page de compte :lock:
-  - '/home' : Page d'accueil :lock:
-  - '/users' : Liste des utilisateurs :lock:
-  - '/users/create': Création d'un utilisateur :lock:
-  - '/users/:id': Visualiser un utilisateur :lock:
-  - '/associations': Liste des associations :lock:
-  - '/associations/create': Création d'une association :lock:
-  - '/associations/:name': Modifier une association :lock:
+- '' : Page de connexion
+- '/login' : Page de connexion
+- '/account' : Page de compte :lock:
+- '/home' : Page d'accueil :lock:
+- '/users' : Liste des utilisateurs :lock:
+- '/users/create': Création d'un utilisateur :lock:
+- '/users/:id': Visualiser un utilisateur :lock:
+- '/associations': Liste des associations :lock:
+- '/associations/create': Création d'une association :lock:
+- '/associations/:name': Modifier une association :lock:
 
+## Choix de conception et remarques 
 
-Nous avons fait le choix de mettre directement les composants des modales directement dans le fichier des composants des pages associés. Angular génère suffisament de fichier, nous avons jugé peu utile d'en ajouter sachant qu'ils se font pas plus de 300 lignes.
+Nous avons fait le choix de mettre directement les composants des modales directement dans les fichiers des composants des pages associés. Angular génère suffisament de fichiers, nous avons jugé peu utile d'en ajouter sachant qu'ils se font pas plus de 300 lignes.
+
+L'ensemble des services sont centralisés dans le répertoire `services`.
+Pour chaque objet que nous manipulons, nous avons créer une classe associée. On peut les retrouver dans le repertoire `dto`. DTO pour "Data To Object".
+
+Nous avons également mis un garde fou qui "bloque" l'accès aux pages lorsque l'utilisateur n'est pas connecté. Etant donné que cela est géré du côté client ce n'est en rien une sécurité, il faut vérifier au niveau du backend que l'utilisateur possède bien un token d'identification si on veut vraiment que ça soit un système sécurité.
+
+Une autre vulnérabilité concerne les tokens, en effet, lorsqu'un utilisateur se connecte, on enregistre un token en dur qui représente l'id de l'utilisateur qui est connecté. Une personne malveillante pourrait changer l'id sauvegardé afin d'usurpé l'identité d'un autre utilisateur.
+
