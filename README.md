@@ -35,7 +35,7 @@ cd fr-administration-front
 npm test
 ```
 
- Nous avons orienté nos tests end-to-end sur les formulaires notamment celui de connexion et ceux qui permette de gérer les utilisateurs.
+Nous avons orienté nos tests end-to-end sur les formulaires notamment celui de connexion et ceux qui permettent de rechercher et de gérer les utilisateurs de l'application.
 **Tests end-to-end avec cypress**
 ```bash
 cd fr-administration-front
@@ -75,9 +75,10 @@ Une fois connecté on accède à plusieurs fonctionnalités (elles sont listées
 - Ajouter une association.
 - Lister les rôles d'un utilisateur.
 
-On peut accéder à l'ensemble des pages et des modals au travers de routes.
+On peut accéder à l'ensemble des pages et des modales à travers des routes.
 
 **Liste des routes disponibles**
+
 :lock: -> Page uniquement accessible lorsqu'on est connecté.
 
 - '' : Page de connexion
@@ -94,7 +95,7 @@ On peut accéder à l'ensemble des pages et des modals au travers de routes.
 
 ## Choix de conception et remarques 
 
-Nous avons fait le choix de directement mettre les composants des modales dans le fichier des composants des pages associés. Angular génère suffisament de fichiers, nous avons jugé peu utile d'en ajouter sachant qu'ils se font pas plus de 300 lignes.
+Nous avons fait le choix de mettre les composants des modales dans le fichier des composants des pages associés. Angular génère suffisament de répertoires, nous avons jugé peu utile d'en ajouter sachant que les fichiers ne font pas plus de 300 lignes.
 
 L'ensemble des services qui font le lien avec le backend sont centralisés dans le répertoire `services`.
 Pour chaque objet que nous manipulons, nous avons une classe associée. On peut les retrouver dans le repertoire `dto`(Data To Object).
