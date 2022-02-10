@@ -106,3 +106,5 @@ Une autre vulnérabilité concerne les tokens, en effet, lorsqu'un utilisateur s
 Pour les rendus visuels nous avons utilisé une bibliothèque Material Angular avec le thème `Indigo & Pink`. Les tableaux, boutons, champs de texte, sélecteurs et modales sont mis en forme à l'aide de cette bibliothèque.
 
 Concernant les illustrations, nous avons utilisé https://icones8.fr/ qui offre un grand nombre d'icones qui permettent de dynamiser les pages. En contrepartie, le site web demande d'être référencé au niveau du footer des pages.
+
+Concernant la recherche via les filtres, nous avons mis en place des délais pour limiter le nombre de requêtes au serveur. Sans délai, à chaque ajout ou suppression de caractère, une requête est émise vers le backend. Cela multiplie énormement les requêtes qui peuvent surcharger le serveur. Avec du délai, on attends quelques millisecondes avant d'envoyer la requête. Si on observe que l'utilisateur continue de modifier le filtre, on attends qu'il ait finit avant de filtrer.
