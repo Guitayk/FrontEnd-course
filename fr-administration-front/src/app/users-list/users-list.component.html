@@ -5,14 +5,14 @@
       Recherche par filtrage
     </h3>
     <div class="searchDiv">
-        <input matInput type="text" formControlName="firstnameFilter" placeholder="Prénom">
+        <input matInput type="text" formControlName="firstnameFilter" placeholder="Prénom" id="filterPrenom">
     </div>
     <div class="searchDiv">
-      <input matInput type="text" formControlName="lastnameFilter" placeholder="Nom">
+      <input matInput type="text" formControlName="lastnameFilter" placeholder="Nom" id="filterNom">
     </div>
   </form>
   <div class="buttonAddUser">
-    <button mat-raised-button color="primary" (click)="openAddDialog()"><h4>
+    <button mat-raised-button color="primary" (click)="openAddDialog()" id="addUser"><h4>
       <img src="https://img.icons8.com/material-sharp/35/ffffff/add.png"/>  
       Ajouter un nouvel utilisateur
     </h4></button>

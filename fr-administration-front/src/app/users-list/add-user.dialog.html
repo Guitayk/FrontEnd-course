@@ -6,19 +6,19 @@
 <div mat-dialog-content>
     <mat-form-field appearance="fill">
         <mat-label>Prénom</mat-label>
-        <input matInput [formControl]="firstnameControl">
+        <input matInput [formControl]="firstnameControl" id="prenom">
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Nom</mat-label>
-        <input matInput [formControl]="lastnameControl">
+        <input matInput [formControl]="lastnameControl" id="nom">
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Age</mat-label>
-        <input matInput [formControl]="ageControl">
+        <input matInput [formControl]="ageControl" id="age">
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial>Ajouter</button>
-    <button mat-button (click)="onCancel()">Annuler</button>
+    <button mat-raised-button color="primary" (click)="submit()" cdkFocusInitial id="add">Ajouter</button>
+    <button mat-button (click)="onCancel()" id="cancel">Annuler</button>
 </div>
