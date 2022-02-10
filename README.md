@@ -51,11 +51,11 @@ Une implémentation déjà faite nous a été fournie. Pour contourner quelques 
 - Récupération des rôles d'un utilisateur
 - Pour la récupération des procès-verbaux, passage des paramètre en query au lieu du body + ajout d'une sécurité si absence d'un paramètre.
 
-## :two: Partie Fronted
+## :two: Partie Frontend
 Le frontend est développé sous Angular 13.1.
-L'implémentation a entièrement été réalisée par nous deux, nous allons détailler le fonctionnement de celui-ci.
+L'implémentation a entièrement été réalisée par nos soins, nous allons détailler le fonctionnement de celui-ci.
 
-Structure globale des pages :
+**Structure globale des pages**
 
 ![images/structure_globale.png](images/structure_globale.png)
 
@@ -75,7 +75,10 @@ Une fois connecté on accède à plusieurs fonctionnalités (elles sont listées
 - Ajouter une association.
 - Lister les rôles d'un utilisateur.
 
-On peut accéder à l'ensemble des pages et des modals au travers de routes via l'API suivante :
+On peut accéder à l'ensemble des pages et des modals au travers de routes.
+
+**Liste des routes disponibles**
+:lock: -> Page uniquement accessible lorsqu'on est connecté.
 
 - '' : Page de connexion
 - '/login' : Page de connexion
@@ -90,12 +93,15 @@ On peut accéder à l'ensemble des pages et des modals au travers de routes via 
 
 ## Choix de conception et remarques 
 
-Nous avons fait le choix de mettre directement les composants des modales directement dans les fichiers des composants des pages associés. Angular génère suffisament de fichiers, nous avons jugé peu utile d'en ajouter sachant qu'ils se font pas plus de 300 lignes.
+Nous avons fait le choix de directement mettre les composants des modales dans le fichier des composants des pages associés. Angular génère suffisament de fichiers, nous avons jugé peu utile d'en ajouter sachant qu'ils se font pas plus de 300 lignes.
 
-L'ensemble des services sont centralisés dans le répertoire `services`.
-Pour chaque objet que nous manipulons, nous avons créer une classe associée. On peut les retrouver dans le repertoire `dto`. DTO pour "Data To Object".
+L'ensemble des services qui font le lien avec le backend sont centralisés dans le répertoire `services`.
+Pour chaque objet que nous manipulons, nous avons une classe associée. On peut les retrouver dans le repertoire `dto`(Data To Object).
 
-Nous avons également mis un garde fou qui "bloque" l'accès aux pages lorsque l'utilisateur n'est pas connecté. Etant donné que cela est géré du côté client ce n'est en rien une sécurité, il faut vérifier au niveau du backend que l'utilisateur possède bien un token d'identification si on veut vraiment que ça soit un système sécurité.
+Nous avons également mis un garde fou qui "bloque" l'accès aux pages lorsque l'utilisateur n'est pas connecté. Etant donné que cela est géré du côté client ce n'est en rien une sécurité. Il faut vérifier au niveau du backend que l'utilisateur possède bien un token d'identification si on veut vraiment que ça soit un système sécurité.
 
-Une autre vulnérabilité concerne les tokens, en effet, lorsqu'un utilisateur se connecte, on enregistre un token en dur qui représente l'id de l'utilisateur qui est connecté. Une personne malveillante pourrait changer l'id sauvegardé afin d'usurpé l'identité d'un autre utilisateur.
+Une autre vulnérabilité concerne les tokens, en effet, lorsqu'un utilisateur se connecte, on enregistre un token en dur qui représente l'id de l'utilisateur qui est connecté. Une personne malveillante pourrait changer l'id sauvegardé afin d'usurper l'identité d'un autre utilisateur.
 
+Pour les rendus visuels nous avons utilisé une bibliothèque Material Angular avec le thème `Indigo & Pink`. Les tableaux, boutons, champs de texte, sélecteurs et modales sont mis en forme à l'aide de cette bibliothèque.
+
+Concernant les illustrations, nous avons utilisé https://icones8.fr/ qui offre un grand nombre d'icones qui permettent de dynamiser les pages. En contrepartie, le site web demande d'être référencé au niveau du footer des pages.
